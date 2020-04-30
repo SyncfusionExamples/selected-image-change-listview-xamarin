@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ListViewXamarin"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             x:Class="ListViewXamarin.MainPage" Padding="{OnPlatform iOS='0,40,0,0'}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:Converter x:Key="converter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <local:ViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <syncfusion:SfListView ItemsSource="{Binding bookList}" x:Name="listView" ItemSize="60" SelectionMode="Single"
+                               AllowKeyboardNavigation="True" TapCommand="{Binding ItemTappedCommand}">
+            <syncfusion:SfListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="1" />
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Author}" Padding="20,5"
+                                   VerticalOptions="Center" HorizontalOptions="Start" />
+                        </Grid>
+                        <Image Grid.Column="1" x:Name="selectionImage" HeightRequest="30" WidthRequest="30" VerticalOptions="Center" Margin="20,5"
+                               Source="{Binding IsSelected, Converter={StaticResource converter}}" HorizontalOptions="End" />
+                        <StackLayout Grid.Row="1" Grid.ColumnSpan="2" BackgroundColor="Gray" HeightRequest="1"/>
+                    </Grid>
+                </DataTemplate>
+            </syncfusion:SfListView.ItemTemplate>
+        </syncfusion:SfListView>
+    </ContentPage.Content>
+
+</ContentPage>
